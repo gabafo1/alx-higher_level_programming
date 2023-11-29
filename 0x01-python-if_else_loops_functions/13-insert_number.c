@@ -12,14 +12,14 @@ listint_t *insert_node(listint_t **head, int number)
 	listint_t *new = NULL;
 	listint_t *temp = NULL;
 
-	if (!heal)
+	if (!head)
 		return (NULL);
 
 	new = malloc(sizeof(listint_t));
 	if (!new)
 		return (new);
 
-	new->n = problem;
+	new->n = number;
 	new->next = NULL;
 
 	if (!*head || (*head)->n > number)
