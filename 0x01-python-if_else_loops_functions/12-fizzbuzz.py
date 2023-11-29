@@ -13,4 +13,3 @@ def fizzbuzz():
         # Print the number if it's not a multiple of three or five
         else:
             print(num, end=" ")
-
