@@ -5,12 +5,11 @@
  * @head: head of the linked list
  * Return: 1 if it is a palindrome, 0 otherwise
  */
-
 int is_palindrome(listint_t **head)
 {
-	if (head == NULL || *head == NULL)
-		return (1);
-	return (aux_palind(head, *head));
+        if (head == NULL || *head == NULL)
+                return (1);
+        return (aux_palind(head, *head));
 }
 
 /**
@@ -19,17 +18,16 @@ int is_palindrome(listint_t **head)
  * @end: pointer to the end of the linked list
  * Return: 1 if it is a palindrome, 0 otherwise
  */
-
 int aux_palind(listint_t **head, listint_t *end)
 {
-	if (end == NULL)
-		return (1);
+        if (end == NULL)
+                return (1);
 
-	if (aux_palind(head, end->next) && (*head)->n == end->n)
-	{
-		*head = (*head)->next;
-		return (1);
-	}
+        if (aux_palind(head, end->next) && (*head)->n == end->n)
+        {
+                *head = (*head)->next;
+                return (1);
+        }
 
-	return (0);
+        return (0);
 }
