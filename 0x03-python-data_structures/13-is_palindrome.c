@@ -1,33 +1,74 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "lists.h"
 
 /**
- * is_palindrome - checks if a linked list is a palindrome
- * @head: head of the linked list
+ * is_palindrome - checks if a singly linked list is a palindrome
+ * @head: pointer to the head of the list
  * Return: 1 if it is a palindrome, 0 otherwise
  */
 int is_palindrome(listint_t **head)
 {
-        if (head == NULL || *head == NULL)
-                return (1);
-        return (aux_palind(head, *head));
+    if (*head == NULL || (*head)->next == NULL)
+        return 1; // An empty list or a list with a single element is a palindrome
+
+    listint_t *slow = *head;
+    listint_t *fast = *head;
+    listint_t *prev = NULL;
+    listint_t *temp;
+
+    // Find the middle of the list using the two-pointer approach
+    while (fast != NULL && fast->next != NULL)
+    {
+        fast = fast->next->next;
+
+        // Reverse the first half of the list
+        temp = slow->next;
+        slow->next = prev;
+        prev = slow;
+        slow = temp;
+    }
+
+    // If the list has an odd number of elements, skip the middle element
+    if (fast != NULL)
+        slow = slow->next;
+
+    // Compare the reversed first half with the second half
+    while (slow != NULL)
+    {
+        if (prev->n != slow->n)
+            return 0; // Not a palindrome
+
+        prev = prev->next;
+        slow = slow->next;
+    }
+
+    return 1; // Palindrome
 }
 
-/**
- * aux_palind - auxiliary function to confirm if it is a palindrome
- * @head: pointer to the head of the linked list
- * @end: pointer to the end of the linked list
- * Return: 1 if it is a palindrome, 0 otherwise
- */
-int aux_palind(listint_t **head, listint_t *end)
+int main(void)
 {
-        if (end == NULL)
-                return (1);
+    listint_t *head = NULL;
 
-        if (aux_palind(head, end->next) && (*head)->n == end->n)
-        {
-                *head = (*head)->next;
-                return (1);
-        }
+    add_nodeint_end(&head, 1);
+    add_nodeint_end(&head, 17);
+    add_nodeint_end(&head, 972);
+    add_nodeint_end(&head, 50);
+    add_nodeint_end(&head, 98);
+    add_nodeint_end(&head, 98);
+    add_nodeint_end(&head, 50);
+    add_nodeint_end(&head, 972);
+    add_nodeint_end(&head, 17);
+    add_nodeint_end(&head, 1);
 
-        return (0);
+    print_listint(head);
+
+    if (is_palindrome(&head) == 1)
+        printf("Linked list is a palindrome\n");
+    else
+        printf("Linked list is not a palindrome\n");
+
+    free_listint(head);
+
+    return 0;
 }
