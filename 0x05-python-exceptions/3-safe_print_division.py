@@ -1,15 +1,25 @@
 #!/usr/bin/python3
+
 def safe_print_division(a, b):
     try:
         result = a / b
     except ZeroDivisionError:
-        print("Error: Division by zero")
-        return None
+        result = None
+        print("Division by zero")
     except Exception as e:
-        print("An error occurred:", e)
-        return None
-    else:
+        result = None
+        print("Exception: {}".format(e))
+    finally:
         print("Inside result: {}".format(result))
         return result
-    finally:
-        print("Finally block executed")
+
+a = 12
+b = 2
+result = safe_print_division(a, b)
+print("{:d} / {:d} = {}".format(a, b, result))
+
+a = 12
+b = 0
+result = safe_print_division(a, b)
+print("{:d} / {:d} = {}".format(a, b, result))
+
