@@ -1,1 +1,1 @@
-id function
+id function eg id(example_object)
